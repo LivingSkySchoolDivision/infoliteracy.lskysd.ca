@@ -3,14 +3,14 @@ pipeline {
     environment {
         REPO = "websitearchive/infoliteracy"
         PRIVATE_REPO = "${PRIVATE_DOCKER_REGISTRY}/${REPO}"
-        TAG = "j-${env.BUILD_NUMBER}"
+        TAG = "${BUILD_TIMESTAMP}"
     }
     stages {
         stage('Git clone') {
             steps {
                 git branch: 'master',
-                    credentialsId: 'JENKINS-AZUREDEVOPS',
-                    url: 'git@ssh.dev.azure.com:v3/LivingSkySchoolDivision/ArchivedWebsite-InfoLiteracy/ArchivedWebsite-InfoLiteracy'
+                    credentialsId: 'DEPLOY-KEY-JENKINS',
+                    url: 'ssh://git@sourcecode.lskysd.ca:32123/PublicCode/ArchivedWebsite-InfoLiteracy.git'
             }
         }
         stage('Docker build') {
@@ -27,11 +27,6 @@ pipeline {
         }
     }
     post {
-        failure {
-            mail to:'jenkinsalerts@lskysd.ca',
-                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                body: "Something is wrong with ${env.BUILD_URL}"
-        }
         always {
             deleteDir()
         }
