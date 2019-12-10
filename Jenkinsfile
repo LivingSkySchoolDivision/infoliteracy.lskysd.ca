@@ -9,8 +9,7 @@ pipeline {
         stage('Git clone') {
             steps {
                 git branch: 'master',
-                    credentialsId: 'DEPLOY-KEY-JENKINS',
-                    url: 'ssh://git@sourcecode.lskysd.ca:32123/PublicCode/ArchivedWebsite-InfoLiteracy.git'
+                    url: 'https://sourcecode.lskysd.ca/PublicCode/ArchivedWebsite-InfoLiteracy.git'
             }
         }
         stage('Docker build') {
