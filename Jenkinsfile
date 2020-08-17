@@ -9,7 +9,7 @@ pipeline {
         stage('Git clone') {
             steps {
                 git branch: 'master',
-                    url: 'https://sourcecode.lskysd.ca/PublicCode/ArchivedWebsite-InfoLiteracy.git'
+                    url: 'https://github.com/LivingSkySchoolDivision/infoliteracy.lskysd.ca.git'
             }
         }
         stage('Docker build') {
